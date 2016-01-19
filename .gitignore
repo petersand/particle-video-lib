@@ -1,0 +1,12 @@
+*~
+*.lock
+*.DS_Store
+*.obj
+*.o
+lib/*
+build/Debug
+build/Release
+build/*.suo
+build/*.ncb
+build/*.user
+build/*.sln
