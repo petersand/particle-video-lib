@@ -22,7 +22,7 @@ namespace pvl {
 int particleSeparation( float grad, float maxFlowGradient, int minSeparation, int maxSeparation ) {
     if (grad > maxFlowGradient)
         grad = maxFlowGradient;
-    return minSeparation + round( (float) (maxSeparation - minSeparation) * (1.0f - grad / maxFlowGradient) );
+    return minSeparation + sbl::round( (float) (maxSeparation - minSeparation) * (1.0f - grad / maxFlowGradient) );
 }
 
 
@@ -49,8 +49,8 @@ void simpleParticleAdd( SimpleParticleSet &particleSet, int frameIndex, const Ar
     for (int i = 0; i < particleSet.count(); i++) {
         const SimpleParticle &p = particleSet.ref( i );
         if (p.active( frameIndex )) {
-            int x = round( p.x( frameIndex ));
-            int y = round( p.y( frameIndex ));
+            int x = sbl::round( p.x( frameIndex ));
+            int y = sbl::round( p.y( frameIndex ));
             if (gradBlur->inBounds( x, y )) {
                 int sep = particleSeparation( gradBlur->data( x, y ), maxFlowGradient, minSeparation, maxSeparation );
                 drawCircleFilled( partMask, x, y, sep, sep );
@@ -108,7 +108,7 @@ void simpleParticleUpdate( SimpleParticleSet &particleSet, int frameIndex, const
     float channelTimeSigma = spConf.readFloat( "channelTimeSigma" );
 
     // compute kernel used for channel smoothing in data term
-    VectorF channelBlurKernel = gaussKernel( round( channelTimeSigma * 3 ), channelTimeSigma );
+    VectorF channelBlurKernel = gaussKernel( sbl::round( channelTimeSigma * 3 ), channelTimeSigma );
 
     // update each particle
     for (int i = 0; i < particleSet.count(); i++) {
@@ -142,8 +142,8 @@ void simpleParticlePropagate( SimpleParticleSet &particleSet, int frameIndex, co
         if (p.active( frameIndex - 1 )) {
             float xPrev = p.x( frameIndex - 1 );
             float yPrev = p.y( frameIndex - 1 );
-            int xPrevRound = round( xPrev );
-            int yPrevRound = round( yPrev );
+            int xPrevRound = sbl::round( xPrev );
+            int yPrevRound = sbl::round( yPrev );
             
             // if in bounds (in previous frame) and is not occluded
             if (mfPrev.inBounds( xPrevRound, yPrevRound )) {
@@ -275,7 +275,7 @@ void visualizeParticleAffinity( const SimpleParticleSet &particleSet, int frameI
         if (p1.active( frameIndex ) && p2.active( frameIndex )) {
             int r = 0, g = 0, b = 0;
             colorize( 1.0f - affinity.data( ind1, ind2 ), 0, 1, r, g, b );
-            drawLine( vis, round( p1.x( frameIndex )), round( p1.y( frameIndex )), round( p2.x( frameIndex )), round( p2.y( frameIndex )), r, g, b, true );
+            drawLine( vis, sbl::round( p1.x( frameIndex )), sbl::round( p1.y( frameIndex )), sbl::round( p2.x( frameIndex )), sbl::round( p2.y( frameIndex )), r, g, b, true );
         }
     }
     dispImage( vis );
@@ -297,7 +297,7 @@ void visualizeParticleClusters( const SimpleParticleSet &particleSet, int frameI
         for (int i = 0; i < pc.memberCount(); i++) {
             const SimpleParticle &p = particleSet.ref( pc.memberIndex( i ));
             if (p.active( frameIndex ))
-                drawCircleFilled( vis, round( p.x( frameIndex )), round( p.y( frameIndex )), 4, r, g, b );
+                drawCircleFilled( vis, sbl::round( p.x( frameIndex )), sbl::round( p.y( frameIndex )), 4, r, g, b );
         }
     }
     dispImage( vis );

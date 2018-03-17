@@ -64,14 +64,14 @@ void plotLinks( const SimpleParticleSet &particleSet, const MatrixI &links, int 
             disp( 1, "invalid link index" );
         const SimpleParticle &p1 = particleSet.ref( index1 );
         const SimpleParticle &p2 = particleSet.ref( index2 );
-        drawLine( vis, round( p1.x( frameIndex )), round( p1.y( frameIndex )), round( p2.x( frameIndex )), round( p2.y( frameIndex )), 0, 0, 255, false );
+        drawLine( vis, sbl::round( p1.x( frameIndex )), sbl::round( p1.y( frameIndex )), sbl::round( p2.x( frameIndex )), sbl::round( p2.y( frameIndex )), 0, 0, 255, false );
     }
 
     // draw each particle
     for (int i = 0; i < particleSet.count(); i++) {
         const SimpleParticle &p = particleSet.ref( i );
         if (p.active( frameIndex ))
-            drawCross( vis, round( p.x( frameIndex )), round( p.y( frameIndex )), 2, 255, 0, 0, true );
+            drawCross( vis, sbl::round( p.x( frameIndex )), sbl::round( p.y( frameIndex )), 2, 255, 0, 0, true );
     }
 
     // display image
@@ -232,7 +232,7 @@ void visualizeOffsets( const SimpleParticleSet &particleSet, const VectorI &ptMa
         // draw scaled arrow
         float x = p.x( frameIndex );
         float y = p.y( frameIndex );
-        drawArrow( *frame, round( x ), round( y ), round( x + dxVal * arrowScale ), round( y + dyVal * arrowScale ), 255, 0, 0, true );
+        drawArrow( *frame, sbl::round( x ), sbl::round( y ), sbl::round( x + dxVal * arrowScale ), sbl::round( y + dyVal * arrowScale ), 255, 0, 0, true );
     }
 
     // display stats

@@ -333,7 +333,7 @@ aptr<ImageColorU> SimpleParticleSet::draw( int frameIndex, const ImageColorU &fr
     for (int i = 0; i < m_simpleParticleSet.count(); i++) {
         const SimpleParticle &particle = m_simpleParticleSet[ i ];
         if (particle.active( frameIndex )) {
-            drawCircleFilled( *vis, round( particle.x( frameIndex ) ), round( particle.y( frameIndex ) ), 2, 255, 0, 0 );
+            drawCircleFilled( *vis, sbl::round( particle.x( frameIndex ) ), sbl::round( particle.y( frameIndex ) ), 2, 255, 0, 0 );
         }
     }
     return vis;
