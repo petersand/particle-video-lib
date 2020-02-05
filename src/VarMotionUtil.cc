@@ -58,7 +58,7 @@ aptr<MotionField> createInitMotion( int width, int height, const MotionField *in
     if (init) {
         mf.reset( new MotionField( *init ) );
         mf->resize( width, height, true ); // uses linear interp
-        disp( 3, "resize init field to %d by %d", width, height );
+        //disp( 3, "resize init field to %d by %d", width, height );
     } else {
         mf.reset( new MotionField( width, height ) );
         mf->clear();
